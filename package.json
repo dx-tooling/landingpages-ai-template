@@ -1,5 +1,5 @@
 {
-    "name": "landingpages",
+    "name": "landingpages-ai-template",
     "version": "1.0.0",
     "main": "src/index.ts",
     "scripts": {
@@ -11,8 +11,7 @@
         "lint": "npm run lint:eslint && npm run lint:types",
         "quality": "npm run prettier:fix && npm run lint",
         "build": "webpack --mode=development",
-        "build:prod": "webpack --mode=production",
-        "build:gh-pages": "npm run build:prod && rm -rf docs && mkdir docs && cp -R dist/. docs/ && touch docs/.nojekyll"
+        "build:prod": "webpack --mode=production"
     },
     "author": "",
     "license": "MIT",

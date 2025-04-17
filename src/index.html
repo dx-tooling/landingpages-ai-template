@@ -2,70 +2,29 @@
 <html lang="en" class="h-full scroll-smooth">
 
 <head>
-    <title>AI-friendly Landing Page Generator & Styleguide - Home</title>
+    <title>Example Landing Page - Showcase</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="AI-friendly Static Landing Page Generator & Styleguide - A template for building static marketing and product landing pages using AI coding assistants.">
+    <meta name="description" content="An example landing page built using the components from the living styleguide.">
 
-    <!-- Include FOUC guard script -->
     <include src="partials/theme-fouc-guard.html"></include>
 
-    <!-- Link to CSS and JS will be injected here by HtmlWebpackPlugin -->
+    <!-- Favicon links (example) -->
+    <!-- <link rel="icon" href="/favicon.ico" sizes="any"> -->
+    <!-- <link rel="icon" href="/icon.svg" type="image/svg+xml"> -->
+    <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+
+    <!-- Link to main CSS will be injected here by HtmlWebpackPlugin -->
 </head>
 
-<body class="h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 font-sans">
+<body class="h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 overflow-x-hidden">
 
-<div class="container mx-auto px-4 py-12 max-w-4xl">
-
-    <header class="mb-12 flex justify-between items-center">
-        <div></div>
-        <!-- Theme Toggle Controller -->
-        <div data-controller="theme">
-            <button
-                data-theme-target="toggleButton"
-                data-action="click->theme#toggle"
-                class="px-4 py-2 font-semibold text-sm text-white bg-purple-600 rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-offset-gray-800 cursor-pointer"
-            >
-                <!-- Text set by controller -->
-            </button>
-        </div>
-    </header>
-
-    <main class="prose prose-lg dark:prose-invert max-w-none">
-        <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">
-            AI-friendly Static Landing Page Generator & Styleguide
-        </h2>
-
-        <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-8">
-            This project provides a modern template and styleguide for building static marketing and product landing pages. It combines a pre-configured development environment with a set of reusable components, designed to be easily extended either manually or, ideally, through AI coding assistants like Cursor.
-        </p>
-
-        <div class="bg-gradient-to-r from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-slate-900 p-6 rounded-lg shadow mb-10">
-            <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">The Goal</h3>
-            <p class="text-gray-700 dark:text-gray-300">
-                Bridge the gap between the ease of AI-driven development ("text-to-landingpage") and the need for full control over clean, static, zero-dependency HTML/CSS/JS output.
-            </p>
-        </div>
-
-        <h3 class="text-2xl font-semibold mb-4">Quick Links</h3>
-        <ul class="list-disc list-inside space-y-2 mb-8">
-            <li><a href="styleguide/index.html" class="text-blue-600 dark:text-blue-400 hover:underline">View the Living Styleguide</a></li>
-            <li><a href="example-page/index.html" class="text-blue-600 dark:text-blue-400 hover:underline">See the Example Landing Page</a></li>
-            <li><a href="https://github.com/dx-tooling/landingpages-ai-template" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">GitHub Repository</a></li>
-        </ul>
-
-        <h3 class="text-2xl font-semibold mb-4">Getting Started</h3>
-        <p>Refer to the <a href="https://github.com/dx-tooling/landingpages-ai-template#getting-started" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">README</a> for setup instructions.</p>
-
-    </main>
-
-    <footer class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400">
-        <p>&copy; 2025 Manuel Kießling. MIT Licensed.</p>
-    </footer>
-
+<div class="container mx-auto px-4 py-8 max-w-5xl">
+    Edit this file to get started. It will end up as the start page, at dist/index.html.
 </div>
 
-<!-- JS Bundle will be injected here by HtmlWebpackPlugin -->
+
+<!-- Main JS bundle will be injected by HtmlWebpackPlugin -->
 </body>
 
 </html>
