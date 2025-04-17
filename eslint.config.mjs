@@ -18,6 +18,7 @@ export default [
     {
         ignores: [
             "**/dist/",
+            "**/docs/",
             "**/node_modules/",
             "**/public/",
             "**/vendor/",
