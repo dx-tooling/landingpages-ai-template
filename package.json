@@ -11,7 +11,8 @@
         "lint": "npm run lint:eslint && npm run lint:types",
         "quality": "npm run prettier:fix && npm run lint",
         "build": "webpack --mode=development",
-        "build:prod": "webpack --mode=production"
+        "build:prod": "webpack --mode=production",
+        "build:gh-pages": "npm run build:prod && rm -rf docs && mkdir docs && cp -R dist/. docs/ && touch docs/.nojekyll"
     },
     "author": "",
     "license": "MIT",
