@@ -5,15 +5,15 @@ import ThemeController from "../../src/controllers/theme_controller";
 const mockMatchMedia = (matches: boolean) => {
     Object.defineProperty(window, "matchMedia", {
         writable: true,
-        value: jest.fn().mockImplementation((query: string) => ({
+        value: vi.fn().mockImplementation((query: string) => ({
             matches: matches,
             media: query,
             onchange: null as ((this: MediaQueryList, ev: MediaQueryListEvent) => never) | null,
-            addListener: jest.fn(), // deprecated
-            removeListener: jest.fn(), // deprecated
-            addEventListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            dispatchEvent: jest.fn(),
+            addListener: vi.fn(), // deprecated
+            removeListener: vi.fn(), // deprecated
+            addEventListener: vi.fn(),
+            removeEventListener: vi.fn(),
+            dispatchEvent: vi.fn(),
         })),
     });
 };
@@ -47,7 +47,7 @@ describe("ThemeController", () => {
 
     beforeEach(() => {
         // Clear mocks and localStorage before each test
-        jest.clearAllMocks();
+        vi.clearAllMocks();
         localStorage.clear();
         // Default to OS light mode unless overridden
         mockMatchMedia(false);

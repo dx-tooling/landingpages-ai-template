@@ -7,11 +7,12 @@
     -   Run `npm run lint:eslint` for ESLint checks (style, patterns).
     -   Run `npm run lint:types` for TypeScript type checking (`tsc --noEmit`).
     -   Run `npm run lint` for both.
--   **Testing:**
-    -   Use Jest with `ts-jest` and `jest-environment-jsdom`.
-    -   Test files should be located in the `tests/` directory and follow the `*.test.ts` pattern.
-    -   Run tests using `npm test`.
--   **Combined Check:** Run `npm run quality` to execute Prettier, Linters (ESLint + TSC), and Tests.
+-   **Testing (Vitest):**
+    -   Uses Vitest with the `jsdom` environment.
+    -   Test files should be located in the `tests/` directory and follow the `*.test.ts` or `*.test.tsx` pattern.
+    -   Run tests using `npm test` or `npm run test:watch` for watch mode.
+    -   See `vitest.config.ts` for configuration.
+-   **Combined Check:** Run `npm run quality` to execute Prettier, Linters (ESLint + TSC), and Tests (using `npm test`).
 -   **TypeScript:** Adhere to TypeScript best practices. Avoid `any` types where possible. Ensure type declarations are accurate.
 
 ### Build Process
@@ -62,7 +63,7 @@
     -   `src/partials/`: Contains reusable HTML partials (e.g., `theme-fouc-guard.html`).
     -   `src/styles/`: Contains source CSS files (e.g., `main.css`).
     -   `src/types/`: Contains custom TypeScript declaration files (e.g., `global.d.ts`).
--   `tests/`: Contains Jest test files (`*.test.ts`).
+-   `tests/`: Contains Vitest test files (`*.test.ts`).
     -   `tests/controllers/`: Contains tests for Stimulus controllers.
 -   `dist/`: Contains the compiled output, mirroring the structure of `src/` for non-partial HTML files.
--   **Root:** Configuration files (`package.json`, `webpack.config.js`, `tsconfig.json`, `tailwind.config.js`, `postcss.config.js`, `eslint.config.mjs`, `jest.config.js`, `.nvmrc`, `.cursorrules`, etc.) reside at the project root.
+-   **Root:** Configuration files (`package.json`, `webpack.config.js`, `tsconfig.json`, `tailwind.config.js`, `postcss.config.js`, `eslint.config.mjs`, `vitest.config.ts`, `.nvmrc`, `.cursorrules`, etc.) reside at the project root.

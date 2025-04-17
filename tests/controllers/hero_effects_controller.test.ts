@@ -3,9 +3,9 @@ import HeroEffectsController from "../../src/controllers/hero_effects_controller
 
 // Mock IntersectionObserver
 let mockIntersectionObserverCallback: IntersectionObserverCallback | null = null;
-const mockObserve = jest.fn();
-const mockUnobserve = jest.fn();
-const mockDisconnect = jest.fn();
+const mockObserve = vi.fn();
+const mockUnobserve = vi.fn();
+const mockDisconnect = vi.fn();
 
 class MockIntersectionObserver implements IntersectionObserver {
     readonly root: Element | Document | null = null;
@@ -19,7 +19,7 @@ class MockIntersectionObserver implements IntersectionObserver {
     observe = mockObserve;
     unobserve = mockUnobserve;
     disconnect = mockDisconnect;
-    takeRecords = jest.fn();
+    takeRecords = vi.fn();
 }
 
 // Helper to simulate intersection changes
@@ -49,7 +49,7 @@ const setupDOM = async (
 
     // Mock getBoundingClientRect is no longer strictly needed after controller refactor,
     // but keep it for now in case it's used by other parts of the test setup indirectly.
-    jest.spyOn(element, "getBoundingClientRect").mockReturnValue({
+    vi.spyOn(element, "getBoundingClientRect").mockReturnValue({
         top: initialVisibility ? 100 : window.innerHeight + 50, // Visible if top < window.innerHeight
         bottom: initialVisibility ? 200 : window.innerHeight + 150,
         left: 0,
@@ -86,12 +86,11 @@ describe("HeroEffectsController", () => {
     });
 
     beforeEach(() => {
-        // Remove jest.useFakeTimers();
         mockIntersectionObserverCallback = null;
         mockObserve.mockClear();
         mockUnobserve.mockClear();
         mockDisconnect.mockClear();
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     afterEach(async () => {
@@ -140,7 +139,7 @@ describe("HeroEffectsController", () => {
 
         // Manually add class before simulating intersection
         element.classList.add(HeroEffectsController.activeClass);
-        const classListSpy = jest.spyOn(element.classList, "add");
+        const classListSpy = vi.spyOn(element.classList, "add");
 
         simulateIntersection(true, element);
 
