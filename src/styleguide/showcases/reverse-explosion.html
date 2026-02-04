@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full scroll-smooth">
+
+<head>
+    <title>Reverse Explosion Hero - Living Styleguide</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <include src="partials/theme-fouc-guard.html"></include>
+
+    <style>
+        .reverse-explosion-stage {
+            perspective: 1400px;
+            perspective-origin: center 35%;
+            overflow: visible;
+        }
+
+        .reverse-explosion-content {
+            transform-style: preserve-3d;
+        }
+
+        [data-reverse-explosion-item] {
+            opacity: 0;
+            transform: translate3d(var(--rx-x, 0px), var(--rx-y, 0px), var(--rx-z, 0px))
+                rotate(var(--rx-rot, 0deg))
+                scale(var(--rx-scale, 1));
+            filter: blur(var(--rx-blur, 0px));
+            transition:
+                transform var(--rx-duration, 2800ms) cubic-bezier(0.16, 1, 0.3, 1),
+                opacity var(--rx-duration, 2800ms) cubic-bezier(0.16, 1, 0.3, 1),
+                filter var(--rx-duration, 2800ms) cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: var(--rx-delay, 0ms);
+            transform-style: preserve-3d;
+        }
+
+        [data-reverse-explosion].is-active [data-reverse-explosion-item] {
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px) rotate(0deg) scale(1);
+            filter: blur(0px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            [data-reverse-explosion-item] {
+                opacity: 1;
+                transform: none;
+                filter: none;
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+
+<div class="container mx-auto px-4 py-12 max-w-5xl">
+
+    <header class="mb-12 flex justify-between items-center">
+        <div>
+            <a href="../index.html" class="text-blue-600 dark:text-blue-400 hover:underline text-sm mb-2 inline-block">&larr; Back to Styleguide</a>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Reverse Explosion Hero</h1>
+        </div>
+        <div data-controller="theme">
+            <button
+                data-theme-target="toggleButton"
+                data-action="click->theme#toggle"
+                class="px-4 py-2 font-semibold text-sm text-white bg-purple-600 rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-offset-gray-800 cursor-pointer"
+            ></button>
+        </div>
+    </header>
+
+    <section class="mb-12">
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+            The <strong>Reverse Explosion</strong> effect creates a dramatic entrance animation where
+            elements start scattered in 3D space (random positions, rotations, blur) and animate inward
+            to their final positions.
+        </p>
+        <p class="text-gray-600 dark:text-gray-400">
+            The animation respects <code class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">prefers-reduced-motion</code>.
+        </p>
+    </section>
+
+</div>
+
+<!-- Live Demo -->
+<section
+    class="reverse-explosion-stage relative mb-16"
+    data-reverse-explosion
+>
+    <div
+        class="reverse-explosion-content relative py-24 px-6 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 dark:from-blue-800 dark:via-indigo-900 dark:to-purple-950"
+    >
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center reverse-explosion-content">
+            <span
+                class="inline-block px-4 py-1.5 mb-6 text-sm font-semibold text-blue-100 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
+                data-reverse-explosion-item
+            >
+                Reverse Explosion Effect
+            </span>
+
+            <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight"
+                data-reverse-explosion-item
+            >
+                Elements Fly In From
+                <span class="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">
+                    Every Direction
+                </span>
+            </h1>
+
+            <p
+                class="text-lg md:text-xl text-blue-100 dark:text-blue-200 mb-10 max-w-2xl mx-auto leading-relaxed"
+                data-reverse-explosion-item
+            >
+                Create stunning hero entrances that capture attention. Each element starts
+                scattered in 3D space and smoothly animates to its final position.
+            </p>
+
+            <div
+                class="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+                data-reverse-explosion-item
+            >
+                <a
+                    href="#usage"
+                    class="inline-block px-8 py-4 font-bold text-lg text-indigo-700 bg-white rounded-lg shadow-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white focus:ring-offset-indigo-700 transition duration-150 ease-in-out"
+                >
+                    See How It Works
+                </a>
+                <button
+                    data-reverse-explosion-replay
+                    class="inline-block px-8 py-4 font-bold text-lg text-white bg-white/10 backdrop-blur-sm rounded-lg border border-white/30 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white focus:ring-offset-indigo-700 transition duration-150 ease-in-out cursor-pointer"
+                >
+                    Replay Animation
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                <div
+                    class="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
+                    data-reverse-explosion-item
+                    data-reverse-explosion-strength="0.8"
+                >
+                    <h3 class="font-semibold text-white mb-1">3D Transforms</h3>
+                    <p class="text-sm text-blue-100">Elements scatter in X, Y, and Z axes</p>
+                </div>
+                <div
+                    class="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
+                    data-reverse-explosion-item
+                    data-reverse-explosion-strength="0.8"
+                >
+                    <h3 class="font-semibold text-white mb-1">Staggered Timing</h3>
+                    <p class="text-sm text-blue-100">Each element has unique delay</p>
+                </div>
+                <div
+                    class="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
+                    data-reverse-explosion-item
+                    data-reverse-explosion-strength="0.8"
+                >
+                    <h3 class="font-semibold text-white mb-1">Blur Effect</h3>
+                    <p class="text-sm text-blue-100">Distant elements start blurred</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Documentation -->
+<div class="container mx-auto px-4 py-12 max-w-5xl">
+
+    <section class="mb-16" id="usage">
+        <h2 class="text-2xl font-semibold border-b border-gray-300 dark:border-gray-700 pb-2 mb-6">Usage</h2>
+
+        <div class="space-y-8">
+            <div>
+                <h3 class="text-lg font-medium mb-3">1. HTML Structure</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Mark the container with <code class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">data-reverse-explosion</code>
+                    and each animated element with <code class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">data-reverse-explosion-item</code>.
+                </p>
+                <pre class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto text-sm"><code class="text-gray-800 dark:text-gray-200">&lt;section data-reverse-explosion style="perspective: 1400px;"&gt;
+  &lt;div style="transform-style: preserve-3d;"&gt;
+    &lt;h1 data-reverse-explosion-item&gt;Headline&lt;/h1&gt;
+    &lt;p data-reverse-explosion-item&gt;Subtext&lt;/p&gt;
+    &lt;button data-reverse-explosion-replay&gt;Replay&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-medium mb-3">2. Include the CSS</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    The CSS is included in <code class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">main.css</code>.
+                    Here's the core for reference:
+                </p>
+                <pre class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto text-sm"><code class="text-gray-800 dark:text-gray-200">[data-reverse-explosion-item] {
+  opacity: 0;
+  transform: translate3d(var(--rx-x, 0), var(--rx-y, 0), var(--rx-z, 0))
+             rotate(var(--rx-rot, 0deg)) scale(var(--rx-scale, 1));
+  filter: blur(var(--rx-blur, 0px));
+  transition: transform var(--rx-duration) cubic-bezier(0.16, 1, 0.3, 1),
+              opacity var(--rx-duration) cubic-bezier(0.16, 1, 0.3, 1),
+              filter var(--rx-duration) cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--rx-delay, 0ms);
+}
+
+[data-reverse-explosion].is-active [data-reverse-explosion-item] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  filter: blur(0px);
+}</code></pre>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-medium mb-3">3. Include the JavaScript</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Add this script at the end of your page (before <code class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">&lt;/body&gt;</code>):
+                </p>
+                <pre class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto text-sm"><code class="text-gray-800 dark:text-gray-200">&lt;script&gt;
+(function() {
+  const container = document.querySelector('[data-reverse-explosion]');
+  if (!container) return;
+
+  const items = Array.from(container.querySelectorAll('[data-reverse-explosion-item]'));
+  const replay = container.querySelector('[data-reverse-explosion-replay]');
+  if (items.length === 0) return;
+
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    container.classList.add('is-active');
+    return;
+  }
+
+  function getStrength(el) {
+    const v = Number(el.dataset.reverseExplosionStrength);
+    return (v &gt; 0) ? v : 1;
+  }
+
+  function prepare() {
+    items.forEach((item, i) =&gt; {
+      const s = getStrength(item);
+      const angle = Math.random() * Math.PI * 2;
+      const spread = 260 + Math.random() * 120;
+      const distance = spread * (0.6 + Math.random() * 0.5);
+      const x = Math.cos(angle) * distance * s;
+      const y = Math.sin(angle) * distance * s;
+      const z = (120 + Math.random() * 320) * s;
+      const rotation = (Math.random() * 2 - 1) * 16 * s;
+      const scale = 0.78 + Math.random() * 0.45;
+      const blur = 3 + Math.random() * 8;
+      const delay = i * 120 + Math.random() * 160;
+
+      item.style.setProperty('--rx-x', x.toFixed(1) + 'px');
+      item.style.setProperty('--rx-y', y.toFixed(1) + 'px');
+      item.style.setProperty('--rx-z', z.toFixed(1) + 'px');
+      item.style.setProperty('--rx-rot', rotation.toFixed(1) + 'deg');
+      item.style.setProperty('--rx-scale', scale.toFixed(2));
+      item.style.setProperty('--rx-blur', blur.toFixed(1) + 'px');
+      item.style.setProperty('--rx-delay', delay.toFixed(0) + 'ms');
+      item.style.setProperty('--rx-duration', '2800ms');
+    });
+  }
+
+  function play() {
+    container.classList.remove('is-active');
+    prepare();
+    requestAnimationFrame(() =&gt; requestAnimationFrame(() =&gt; container.classList.add('is-active')));
+  }
+
+  play();
+  if (replay) replay.addEventListener('click', play);
+})();
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-medium mb-3">Per-Item Strength</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Use <code class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">data-reverse-explosion-strength</code> to adjust intensity per element.
+                </p>
+                <pre class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto text-sm"><code class="text-gray-800 dark:text-gray-200">&lt;!-- Subtle (less scatter) --&gt;
+&lt;div data-reverse-explosion-item data-reverse-explosion-strength="0.5"&gt;...&lt;/div&gt;
+
+&lt;!-- Dramatic (more scatter) --&gt;
+&lt;div data-reverse-explosion-item data-reverse-explosion-strength="1.5"&gt;...&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-16">
+        <h2 class="text-2xl font-semibold border-b border-gray-300 dark:border-gray-700 pb-2 mb-6">Accessibility</h2>
+        <div class="p-4 rounded-md bg-green-50 border border-green-300 dark:bg-green-900/30 dark:border-green-700/50">
+            <p class="text-sm font-medium text-green-800 dark:text-green-200">
+                <strong>Respects prefers-reduced-motion:</strong> Elements appear immediately without animation for users who prefer reduced motion.
+            </p>
+        </div>
+    </section>
+
+</div>
+
+<footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16 py-8">
+    <div class="container mx-auto px-4 text-center text-sm text-gray-600 dark:text-gray-400">
+        Part of the <a href="../index.html" class="text-blue-600 dark:text-blue-400 hover:underline">Living Styleguide</a>
+    </div>
+</footer>
+
+<script>
+(function() {
+    const container = document.querySelector('[data-reverse-explosion]');
+    if (!container) return;
+
+    const items = Array.from(container.querySelectorAll('[data-reverse-explosion-item]'));
+    const replay = container.querySelector('[data-reverse-explosion-replay]');
+    if (items.length === 0) return;
+
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+        container.classList.add('is-active');
+        return;
+    }
+
+    function getStrength(el) {
+        const v = Number(el.dataset.reverseExplosionStrength);
+        return (v > 0) ? v : 1;
+    }
+
+    function prepare() {
+        items.forEach((item, i) => {
+            const s = getStrength(item);
+            const angle = Math.random() * Math.PI * 2;
+            const spread = 260 + Math.random() * 120;
+            const distance = spread * (0.6 + Math.random() * 0.5);
+            const x = Math.cos(angle) * distance * s;
+            const y = Math.sin(angle) * distance * s;
+            const z = (120 + Math.random() * 320) * s;
+            const rotation = (Math.random() * 2 - 1) * 16 * s;
+            const scale = 0.78 + Math.random() * 0.45;
+            const blur = 3 + Math.random() * 8;
+            const delay = i * 120 + Math.random() * 160;
+
+            item.style.setProperty('--rx-x', x.toFixed(1) + 'px');
+            item.style.setProperty('--rx-y', y.toFixed(1) + 'px');
+            item.style.setProperty('--rx-z', z.toFixed(1) + 'px');
+            item.style.setProperty('--rx-rot', rotation.toFixed(1) + 'deg');
+            item.style.setProperty('--rx-scale', scale.toFixed(2));
+            item.style.setProperty('--rx-blur', blur.toFixed(1) + 'px');
+            item.style.setProperty('--rx-delay', delay.toFixed(0) + 'ms');
+            item.style.setProperty('--rx-duration', '2800ms');
+        });
+    }
+
+    function play() {
+        container.classList.remove('is-active');
+        prepare();
+        requestAnimationFrame(() => requestAnimationFrame(() => container.classList.add('is-active')));
+    }
+
+    play();
+    if (replay) replay.addEventListener('click', play);
+})();
+</script>
+</body>
+
+</html>
