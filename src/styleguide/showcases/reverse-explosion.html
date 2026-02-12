@@ -39,14 +39,8 @@
             filter: blur(0px);
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            [data-reverse-explosion-item] {
-                opacity: 1;
-                transform: none;
-                filter: none;
-                transition: none;
-            }
-        }
+        /* Note: prefers-reduced-motion is intentionally ignored here
+           because this page explicitly showcases an animation effect. */
     </style>
 </head>
 
@@ -75,7 +69,8 @@
             to their final positions.
         </p>
         <p class="text-gray-600 dark:text-gray-400">
-            The animation respects <code class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">prefers-reduced-motion</code>.
+            This showcase intentionally ignores <code class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">prefers-reduced-motion</code>
+            because the animation <em>is</em> the content being demonstrated.
         </p>
     </section>
 
@@ -228,12 +223,6 @@
   const replay = container.querySelector('[data-reverse-explosion-replay]');
   if (items.length === 0) return;
 
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reducedMotion) {
-    container.classList.add('is-active');
-    return;
-  }
-
   function getStrength(el) {
     const v = Number(el.dataset.reverseExplosionStrength);
     return (v &gt; 0) ? v : 1;
@@ -266,8 +255,12 @@
 
   function play() {
     container.classList.remove('is-active');
+    items.forEach(item =&gt; { item.style.transition = 'none'; });
     prepare();
-    requestAnimationFrame(() =&gt; requestAnimationFrame(() =&gt; container.classList.add('is-active')));
+    container.offsetHeight;   // flush scattered styles
+    items.forEach(item =&gt; { item.style.transition = ''; });
+    container.offsetHeight;   // flush transition re-enable
+    container.classList.add('is-active');
   }
 
   play();
@@ -292,9 +285,12 @@
 
     <section class="mb-16">
         <h2 class="text-2xl font-semibold border-b border-gray-300 dark:border-gray-700 pb-2 mb-6">Accessibility</h2>
-        <div class="p-4 rounded-md bg-green-50 border border-green-300 dark:bg-green-900/30 dark:border-green-700/50">
-            <p class="text-sm font-medium text-green-800 dark:text-green-200">
-                <strong>Respects prefers-reduced-motion:</strong> Elements appear immediately without animation for users who prefer reduced motion.
+        <div class="p-4 rounded-md bg-amber-50 border border-amber-300 dark:bg-amber-900/30 dark:border-amber-700/50">
+            <p class="text-sm font-medium text-amber-800 dark:text-amber-200">
+                <strong>Note:</strong> This showcase intentionally ignores
+                <code class="px-1 py-0.5 bg-amber-100 dark:bg-amber-800 rounded text-xs">prefers-reduced-motion</code>
+                because the animation itself is the content being demonstrated.
+                When embedding this effect in a production page, consider re-adding the reduced-motion guard.
             </p>
         </div>
     </section>
@@ -315,12 +311,6 @@
     const items = Array.from(container.querySelectorAll('[data-reverse-explosion-item]'));
     const replay = container.querySelector('[data-reverse-explosion-replay]');
     if (items.length === 0) return;
-
-    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion) {
-        container.classList.add('is-active');
-        return;
-    }
 
     function getStrength(el) {
         const v = Number(el.dataset.reverseExplosionStrength);
@@ -353,9 +343,28 @@
     }
 
     function play() {
+        // 1. Remove active state and disable transitions so the browser
+        //    commits the scattered positions without animating to them.
         container.classList.remove('is-active');
+        items.forEach(item => { item.style.transition = 'none'; });
+
+        // 2. Set randomised scattered positions.
         prepare();
-        requestAnimationFrame(() => requestAnimationFrame(() => container.classList.add('is-active')));
+
+        // 3. Force the browser to compute the scattered layout (sync reflow).
+        //    Reading offsetHeight flushes pending style/layout changes.
+        container.offsetHeight;          // eslint-disable-line no-unused-expressions
+
+        // 4. Re-enable CSS transitions (clear the inline override so the
+        //    stylesheet rule takes effect again).
+        items.forEach(item => { item.style.transition = ''; });
+
+        // 5. Another forced reflow so the browser registers the transition
+        //    re-enablement as a separate style change from the class toggle.
+        container.offsetHeight;          // eslint-disable-line no-unused-expressions
+
+        // 6. Now trigger the animation by adding the active class.
+        container.classList.add('is-active');
     }
 
     play();
